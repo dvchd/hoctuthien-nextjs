@@ -12,7 +12,6 @@ async function main() {
     name: "Admin Test",
     email: "admin@test.com",
     emailVerified: true,
-    role: "admin", // Đảm bảo có trường này nếu đã bật plugin admin
     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Admin",
     createdAt: new Date(),
     updatedAt: new Date(),
