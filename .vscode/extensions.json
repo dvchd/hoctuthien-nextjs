@@ -1,0 +1,20 @@
+{
+  "recommendations": [
+    // 1. Format & Linting (Bắt buộc cho chuẩn Space 2)
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+
+    // 2. Styling (Hỗ trợ Tailwind 4)
+    "bradlc.vscode-tailwindcss",
+
+    // 3. Database (Để xem file local.db ngay trong editor)
+    "qwtel.sqlite-viewer",
+
+    // 4. TypeScript & DX (Giúp đọc lỗi Better Auth/Drizzle dễ hơn)
+    "yoavbless.pretty-ts-errors",
+    "usernamehw.errorlens",
+
+    // 5. React & Next.js Snippets
+    "dsznajder.es7-react-js-snippets"
+  ]
+}

@@ -30,8 +30,15 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# KHÔNG chặn file example
+!.env.example
 
 # vercel
 .vercel
@@ -39,3 +46,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# --- Bổ sung cho SQLite ---
+# Chặn file database local (đây là file chứa dữ liệu thật của bạn)
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# --- Bổ sung cho Drizzle ---
+# Nếu bạn không muốn commit các file nhật ký của Drizzle Kit (tùy chọn)
+# /drizzle
+
+# --- Bổ sung cho Better Auth CLI ---
+# Chặn các file cấu hình tạm hoặc log của Better Auth nếu có
+.better-auth/
