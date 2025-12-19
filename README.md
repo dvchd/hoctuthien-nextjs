@@ -1,36 +1,125 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌟 Hoctuthien - Fullstack Next.js 16 Starter
 
-## Getting Started
+Dự án sử dụng bộ công nghệ hiện đại nhất (God Stack 2025) để xây dựng ứng dụng Fullstack với tốc độ phát triển cực nhanh, bảo mật và hiệu năng cao.
 
-First, run the development server:
+## 🚀 Tech Stack
+
+- **Framework:** [Next.js 16 (App Router)](https://nextjs.org/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Auth:** [Better Auth](https://www.better-auth.com/) (Google Login + Admin Plugin)
+- **Database ORM:** [Drizzle ORM](https://orm.drizzle.team/)
+- **Database Engine:** [LibSQL / SQLite](https://turso.tech/libsql)
+- **Styling:** [Tailwind CSS v4](https://tailwindcss.com/)
+- **Optimization:** [React Compiler](https://react.dev/learn/react-compiler)
+- **Code Quality:** Prettier (Space 2) & ESLint
+
+---
+
+## 🛠️ Cài đặt ban đầu
+
+### 1. Clone dự án và cài đặt thư viện
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <your-repo-url>
+cd hoctuthien
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Cấu hình biến môi trường
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Tạo file `.env` từ file `.env.example` và điền các thông số:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```env
+DATABASE_URL="file:local.db"
+BETTER_AUTH_SECRET="your_secret_here"
+BETTER_AUTH_URL="http://localhost:3000"
 
-## Learn More
+GOOGLE_CLIENT_ID="xxx.apps.googleusercontent.com"
+GOOGLE_CLIENT_SECRET="GOCSPX-xxx"
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Khởi tạo Database & Auth
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Đây là bước quan trọng nhất để đồng bộ Schema:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+# 1. Tạo Schema cho Better Auth
+npm run auth:gen
 
-## Deploy on Vercel
+# 2. Đẩy cấu hình Schema vào file database local.db
+npm run db:push
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# 3. Tạo dữ liệu mẫu (Admin test)
+npm run db:seed
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 📖 Các câu lệnh quan trọng (Scripts)
+
+| Lệnh                | Mô tả                                                    |
+| :------------------ | :------------------------------------------------------- |
+| `npm run dev`       | Chạy ứng dụng ở chế độ Development                       |
+| `npm run auth:gen`  | Cập nhật schema Auth khi thay đổi config trong `auth.ts` |
+| `npm run db:push`   | Đồng bộ Schema Drizzle trực tiếp vào Database            |
+| `npm run db:studio` | Mở giao diện Web để xem/sửa dữ liệu Database             |
+| `npm run db:seed`   | Chèn dữ liệu mẫu vào Database                            |
+| `npm run format`    | Tự động định dạng toàn bộ code về Space 2                |
+| `npm run lint`      | Kiểm tra lỗi logic bằng ESLint                           |
+
+---
+
+## 🏗️ Cấu trúc thư mục (Project Structure)
+
+- `src/app`: Routes, Pages và Server Components.
+- `src/components`: Các UI components dùng chung.
+- `src/db`: Toàn bộ cấu hình Database.
+  - `schema/`: Chứa các định nghĩa bảng (Auth, Business).
+  - `index.ts`: Kết nối Drizzle với LibSQL.
+- `src/lib`: Cấu hình các thư viện bên thứ 3 (Auth client/server, utils).
+- `src/actions`: Chứa các Server Actions xử lý logic nghiệp vụ.
+
+---
+
+## 🔐 Quy trình cập nhật Auth & Database
+
+Mỗi khi bạn muốn thêm một bảng mới hoặc thêm tính năng cho Better Auth (ví dụ: bật plugin mới):
+
+1. Cập nhật cấu hình trong `src/lib/auth.ts`.
+2. Chạy `npm run auth:gen` để cập nhật file code schema.
+3. Chạy `npm run db:push` để cập nhật bảng thực tế trong Database.
+
+---
+
+## 🎨 Quy chuẩn Code (Code Standards)
+
+- **Indentation:** 2 spaces (đã cấu hình qua Prettier).
+- **Naming:**
+  - Biến/Hàm: `camelCase`.
+  - Components: `PascalCase`.
+  - Database Columns: `snake_case` (trong DB) và `camelCase` (trong code).
+- **Tailwind:** Sử dụng hàm `cn()` từ `src/lib/utils.ts` để gộp class.
+
+---
+
+## 🛡️ Bảo mật
+
+- Database local (`*.db`) và file `.env` đã được chặn trong `.gitignore`.
+- Tuyệt đối không commit các thông tin nhạy cảm lên Repository.
+- Sử dụng `src/middleware.ts` để bảo vệ các route `/dashboard` và `/admin`.
+
+---
+
+## 📝 Giấy phép
+
+Dự án được phát triển cho mục đích [Học Từ Thiện]. Vui lòng không sao chép khi chưa được phép.
+
+---
+
+**Happy Coding! 🚀**
+
+---
+
+### Mẹo nhỏ:
+
+Bạn có thể mở `README.md` này trong VS Code và nhấn `Ctrl + Shift + V` để xem bản xem trước (Preview) cực đẹp trước khi commit lên GitHub nhé!
